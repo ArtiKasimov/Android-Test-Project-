@@ -5,6 +5,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class SecondFragment extends Fragment {
 
@@ -13,15 +17,25 @@ public class SecondFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.second_fragment, container, false);
+
+        ArrayList<String> references = new ArrayList<>();
+        references.add("first reference");
+        references.add("second reference");
+        references.add("iOS third reference");
+        references.add("Mac OSX fourth reference");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    getContext(),
+                    android.R.layout.simple_list_item_1,
+                    references);
+
+        ListView listView = view.findViewById(R.id.listview);
+        listView.setAdapter(adapter);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.second_fragment, container, false);
+        return view;
     }
 
 }
