@@ -22,11 +22,11 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.simpleTabLayout);
 
         TabLayout.Tab firstTab = tabLayout.newTab();
-        firstTab.setText("First");
+        firstTab.setText(R.string.firstTab);
         tabLayout.addTab(firstTab);
 
         TabLayout.Tab secondTab = tabLayout.newTab();
-        secondTab.setText("Second");
+        secondTab.setText(R.string.secondTab);
         tabLayout.addTab(secondTab);
 
         Fragment fragment = new FirstFragment();
