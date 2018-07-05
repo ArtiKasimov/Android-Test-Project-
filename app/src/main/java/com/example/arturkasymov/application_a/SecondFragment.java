@@ -24,8 +24,8 @@ public class SecondFragment extends Fragment {
         ArrayList<String> references = new ArrayList<>();
         references.add("first reference");
         references.add("second reference");
-        references.add("iOS third reference");
-        references.add("Mac OSX fourth reference");
+        references.add("third reference");
+        references.add("fourth reference");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                     getContext(),
