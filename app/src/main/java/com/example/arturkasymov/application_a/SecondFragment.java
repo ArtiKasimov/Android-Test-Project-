@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SecondFragment extends Fragment {
 
@@ -20,33 +21,30 @@ public class SecondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.second_fragment, container, false);
-        DBHandler dbHandler = new DBHandler(getContext());
+        DBHandler db = new DBHandler(getContext());
 
 
-        //dbHandler.getAllRecords();
-        ArrayList<String> references = new ArrayList<>();
-        references.add("first reference");
-        references.add("second reference");
-        references.add("third reference");
-        references.add("fourth reference");
+        db.addRecord(new Re_cord(0,"1111111", 1, 0));
+        db.addRecord(new Re_cord(1,"2222222", 1, 0));
+        db.addRecord(new Re_cord(2,"3333333", 1, 0));
+        db.addRecord(new Re_cord(3,"4444444", 1, 0));
+        db.addRecord(new Re_cord(4,"5555555", 1, 0));
 
+        List<Re_cord> re_cords = db.getAllRecords();
 
-        //ArrayList<Re_cord> allRecords = (ArrayList) (dbHandler.getAllRe_cords());
-
-        // it's needed while we haven't custom adapter
-        //ArrayList<String> references = new ArrayList<String>();
-       // for (Re_cord temp: allRecords){
-       //     references.add(temp.getReference());
-        //}
+        ArrayList<String> references = new ArrayList<String>();
+        for (Re_cord temp: re_cords){
+            references.add(temp.getReference());
+        }
         // it's end
 
         // it's must be improved
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    getContext(),
-                    android.R.layout.simple_list_item_1,
-                    references);
+                getContext(),
+                android.R.layout.simple_list_item_1,
+                references);
 
-        ListView listView = view.findViewById(R.id.listview);
+        ListView listView =view.findViewById(R.id.listview);
         listView.setAdapter(adapter);
         // it's end
 
