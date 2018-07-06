@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Application_A</string>
-    <string name="firstTab">test</string>
-    <string name="secondTab">history</string>
+    <string name="firstTab">Test</string>
+    <string name="secondTab">History</string>
     <string name="buttonOk">ok</string>
+    <string name="editTextFr1">Enter a link to the image</string>
 </resources>
