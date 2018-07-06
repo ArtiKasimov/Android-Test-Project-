@@ -18,7 +18,8 @@ public class FirstFragment extends Fragment {
 
     private String image_URL;
     private final String EXTRA_IMAGE_URL = "com.example.arturkasymov.application_a.image_URL";
-    public static final int REQUEST_CODE_APPLICATION_B = 7;
+    private final String EXTRA_FRAGMENT_ID = "com.example.arturkasymov.application_a.FRAGMENT_ID";
+    private final String FRAGMENT_ID = "1";
 
     public FirstFragment() {
         // Required empty public constructor
@@ -64,6 +65,7 @@ public class FirstFragment extends Fragment {
                 i.setComponent(new ComponentName("com.example.arturkasymov.application_b",
                         "com.example.arturkasymov.application_b.MainActivity"));
                 i.putExtra( EXTRA_IMAGE_URL, image_URL);
+                i.putExtra(EXTRA_FRAGMENT_ID,FRAGMENT_ID);
                 startActivity(i);
 
 

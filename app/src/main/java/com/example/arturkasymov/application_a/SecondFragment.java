@@ -1,5 +1,7 @@
 package com.example.arturkasymov.application_a;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SecondFragment extends Fragment {
+
+
+    private final String EXTRA_FRAGMENT_ID = "com.example.arturkasymov.application_a.FRAGMENT_ID";
+    private final String FRAGMENT_ID = "2";
 
     public SecondFragment() {
         // Required empty public constructor
@@ -50,6 +56,19 @@ public class SecondFragment extends Fragment {
         // it's end
 
         // Inflate the layout for this fragment
+
+
+        /* Потом впихнуть туда, где будет открываться приложение Б с вкладки история
+        Intent i = new Intent();
+        i.setComponent(new ComponentName("com.example.arturkasymov.application_b",
+                "com.example.arturkasymov.application_b.MainActivity"));
+        i.putExtra(EXTRA_FRAGMENT_ID,FRAGMENT_ID);
+        startActivity(i);
+
+        */
+
+
+
         return view;
     }
 
