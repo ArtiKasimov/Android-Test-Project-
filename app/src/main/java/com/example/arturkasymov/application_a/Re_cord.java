@@ -12,6 +12,13 @@ public class Re_cord {
         this.time = time;
     }
 
+    public Re_cord(int id, String reference, int status, int time){
+        this.id = id;
+        this.reference = reference;
+        this.status = status;
+        this.time = time;
+    }
+
 
     public String getReference() {
         return reference;

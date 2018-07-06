@@ -32,6 +32,7 @@ public class SecondFragment extends Fragment {
 
         List<Re_cord> re_cords = db.getAllRecords();
 
+        // Here must be customAdapter
         ArrayList<String> references = new ArrayList<String>();
         for (Re_cord temp: re_cords){
             references.add(temp.getReference());
