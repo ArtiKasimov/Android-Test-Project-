@@ -15,10 +15,10 @@ public class DBHandler extends SQLiteOpenHelper {
     // Database Name
     public static final String DATABASE_NAME = "history.db";
     // Contacts table name
-    private static final String TABLE_NAME = "refs";
+    public static final String TABLE_NAME = "refs";
 
     //Table Columns names
-    private static final String KEY_ID = "id";
+    public static final String KEY_ID = "id";
     private static final String KEY_REFERENCE = "reference";
     private static final String KEY_STATUS = "status";
     private static final String KEY_TIME = "time";
