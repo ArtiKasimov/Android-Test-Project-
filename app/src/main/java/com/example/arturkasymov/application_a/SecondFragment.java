@@ -22,7 +22,14 @@ public class SecondFragment extends Fragment {
         View view = inflater.inflate(R.layout.second_fragment, container, false);
         DBHandler dbHandler = new DBHandler(getContext());
 
-        dbHandler.getAllRe_cords();
+
+        dbHandler.getAllRecords();
+        ArrayList<String> references = new ArrayList<>();
+        references.add("first reference");
+        references.add("second reference");
+        references.add("third reference");
+        references.add("fourth reference");
+
 
         //ArrayList<Re_cord> allRecords = (ArrayList) (dbHandler.getAllRe_cords());
 
