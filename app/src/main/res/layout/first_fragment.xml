@@ -9,17 +9,18 @@
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="60dp" />
+        android:layout_marginTop="60dp"
+        android:hint="@string/editTextFr1"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonOK"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:text="@string/buttonOk"
         android:textSize="30sp"
         android:visibility="visible" />
