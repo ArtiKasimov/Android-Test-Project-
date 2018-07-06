@@ -23,7 +23,7 @@ public class SecondFragment extends Fragment {
         DBHandler dbHandler = new DBHandler(getContext());
 
 
-        dbHandler.getAllRecords();
+        //dbHandler.getAllRecords();
         ArrayList<String> references = new ArrayList<>();
         references.add("first reference");
         references.add("second reference");
@@ -34,10 +34,10 @@ public class SecondFragment extends Fragment {
         //ArrayList<Re_cord> allRecords = (ArrayList) (dbHandler.getAllRe_cords());
 
         // it's needed while we haven't custom adapter
-  /*      ArrayList<String> references = new ArrayList<String>();
-        for (Re_cord temp: allRecords){
-            references.add(temp.getReference());
-        }
+        //ArrayList<String> references = new ArrayList<String>();
+       // for (Re_cord temp: allRecords){
+       //     references.add(temp.getReference());
+        //}
         // it's end
 
         // it's must be improved
@@ -49,7 +49,7 @@ public class SecondFragment extends Fragment {
         ListView listView = view.findViewById(R.id.listview);
         listView.setAdapter(adapter);
         // it's end
-*/
+
         // Inflate the layout for this fragment
         return view;
     }
