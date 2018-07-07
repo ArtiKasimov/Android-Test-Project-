@@ -30,11 +30,11 @@ public class SecondFragment extends Fragment {
         DBHandler db = new DBHandler(getContext());
 
 
-        db.addRecord(new Re_cord(0,"1111111", 1, 0));
-        db.addRecord(new Re_cord(1,"2222222", 1, 0));
-        db.addRecord(new Re_cord(2,"3333333", 1, 0));
-        db.addRecord(new Re_cord(3,"4444444", 1, 0));
-        db.addRecord(new Re_cord(4,"5555555", 1, 0));
+        //db.addRecord(new Re_cord(0,"1111111", 1, 0));
+        //db.addRecord(new Re_cord(1,"2222222", 1, 0));
+        //db.addRecord(new Re_cord(2,"3333333", 1, 0));
+        //db.addRecord(new Re_cord(3,"4444444", 1, 0));
+        //db.addRecord(new Re_cord(4,"5555555", 1, 0));
 
         List<Re_cord> re_cords = db.getAllRecords();
 
