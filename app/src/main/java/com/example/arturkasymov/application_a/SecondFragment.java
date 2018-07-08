@@ -35,6 +35,7 @@ public class SecondFragment extends Fragment {
 
     private RecyclerView mRe_cordRecyclerView;
     private Re_codrAdapter mAdapter;
+    List<Re_cord> Re_cords;
 
     public SecondFragment() {
         // Required empty public constructor
@@ -46,37 +47,9 @@ public class SecondFragment extends Fragment {
         View v = inflater.inflate(R.layout.second_fragment, container, false);
 
         DBHandler db = new DBHandler(getContext());
-        List<Re_cord> re_cords = db.getAllRecords();
 
         mRe_cordRecyclerView = (RecyclerView) v.findViewById(R.id.Re_cord_Recycler_View);
         mRe_cordRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        // mRe_cordRecyclerView.setOnClickListener();
-
-
-        ////// it's Misha's code
-        /*final ArrayList<Re_cord> alc = new ArrayList<>(re_cords);
-        ListView lv = (ListView)v.findViewById(R.id.listView);
-        //lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-        //    @Override
-        //    public void onItemClick(AdapterView<?> parent, View view,
-        //                            int position, long id) {
-        //        tvl.setText(alc.get(position).getReference());
-        //        tvr.setText(alc.get(position).getStatus());
-        //    }
-        //});
-        MyAdapter ma= new MyAdapter(alc,this.getLayoutInflater());//
-        lv.setAdapter(ma);*///////////////
-
-
-        /*
-        // Here must be customAdapter
-        ArrayList<String> references = new ArrayList<String>();
-        for (Re_cord temp: re_cords){
-            references.add(temp.getReference());
-        }
-        // it's end*/
-
-
 
         updateUI();
 
@@ -87,40 +60,10 @@ public class SecondFragment extends Fragment {
 
     private void updateUI(){
         DBHandler db = new DBHandler(getContext());
-        List<Re_cord> Re_cords = db.getAllRecords();
+        Re_cords = db.getAllRecords();
         mAdapter = new Re_codrAdapter(Re_cords);
         mRe_cordRecyclerView.setAdapter(mAdapter);
 }
-
-/////// Misha's
-/*class MyAdapter extends BaseAdapter{
-    class ViewHolder {
-        TextView tvLeft;
-    }
-    ArrayList<Re_cord> alc;
-    LayoutInflater li;
-    MyAdapter(ArrayList<Re_cord> alc, LayoutInflater li){
-        this.alc = alc; this.li = li;
-    }
-    public int getCount(){ return alc.size(); }
-    public long getItemId(int i){ return 0; }
-    public Object getItem(int index){ return alc.get(index); }
-    public View getView(int index, View v, ViewGroup vg){
-        Re_cord temp = (Re_cord) getItem(index);
-        ViewHolder vh = null;
-        if(v != null){
-            vh = (ViewHolder)v.getTag();
-        }else{
-            v = li.inflate(R.layout.second_fragment2, null);
-            vh = new ViewHolder();
-            vh.tvLeft = (TextView)v.findViewById(R.id.textViewLeft);
-        }
-        vh.tvLeft.setText(temp.getReference());
-        vh.tvLeft.setBackgroundColor(R.color.colorAccent);
-        v.setTag(vh);
-        return v;
-    }
-}*//////////////
 
     private class Re_cordHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -145,6 +88,8 @@ public class SecondFragment extends Fragment {
             i.setComponent(new ComponentName("com.example.arturkasymov.application_b",
                     "com.example.arturkasymov.application_b.MainActivity"));
             i.putExtra(EXTRA_FRAGMENT_ID,FRAGMENT_ID);
+            Re_cord re_cord = Re_cords.get(id);
+            id = re_cord.getId();
             i.putExtra(ROW_ID,""+id);
             ///////////
             /// здесь место для передачи чего-то там
