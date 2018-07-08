@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,12 +43,19 @@ public class SecondFragment extends Fragment {
         mRe_cordRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-
-
-
-
-
-
+        ////// it's Misha's code
+        /*final ArrayList<Re_cord> alc = new ArrayList<>(re_cords);
+        ListView lv = (ListView)v.findViewById(R.id.listView);
+        //lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        //    @Override
+        //    public void onItemClick(AdapterView<?> parent, View view,
+        //                            int position, long id) {
+        //        tvl.setText(alc.get(position).getReference());
+        //        tvr.setText(alc.get(position).getStatus());
+        //    }
+        //});
+        MyAdapter ma= new MyAdapter(alc,this.getLayoutInflater());//
+        lv.setAdapter(ma);*///////////////
 
 
         /*
@@ -82,13 +91,45 @@ public class SecondFragment extends Fragment {
         return v;
     }
 
+
+
     private void updateUI(){
         //CrimeLab crimeLab = CrimeLab.get(getActivity());
         DBHandler db = new DBHandler(getContext());
         List<Re_cord> Re_cords = db.getAllRecords();
         mAdapter = new Re_codrAdapter(Re_cords);
         mRe_cordRecyclerView.setAdapter(mAdapter);
+}
+
+/////// Misha's
+/*class MyAdapter extends BaseAdapter{
+    class ViewHolder {
+        TextView tvLeft;
     }
+    ArrayList<Re_cord> alc;
+    LayoutInflater li;
+    MyAdapter(ArrayList<Re_cord> alc, LayoutInflater li){
+        this.alc = alc; this.li = li;
+    }
+    public int getCount(){ return alc.size(); }
+    public long getItemId(int i){ return 0; }
+    public Object getItem(int index){ return alc.get(index); }
+    public View getView(int index, View v, ViewGroup vg){
+        Re_cord temp = (Re_cord) getItem(index);
+        ViewHolder vh = null;
+        if(v != null){
+            vh = (ViewHolder)v.getTag();
+        }else{
+            v = li.inflate(R.layout.second_fragment2, null);
+            vh = new ViewHolder();
+            vh.tvLeft = (TextView)v.findViewById(R.id.textViewLeft);
+        }
+        vh.tvLeft.setText(temp.getReference());
+        vh.tvLeft.setBackgroundColor(R.color.colorAccent);
+        v.setTag(vh);
+        return v;
+    }
+}*//////////////
 
     private class Re_cordHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView mTitleTextView;
@@ -133,6 +174,7 @@ public class SecondFragment extends Fragment {
         public void onBindViewHolder(Re_cordHolder holder, int position){
             Re_cord re_cord = mRe_cords.get(position);
             holder.mTitleTextView.setText(re_cord.getReference());
+            holder.mTitleTextView.setBackgroundColor(R.color.colorAccent);
         }
 
         public int getItemCount(){
