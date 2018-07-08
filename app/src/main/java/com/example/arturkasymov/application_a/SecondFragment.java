@@ -9,6 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -38,6 +41,12 @@ public class SecondFragment extends Fragment {
 
     public SecondFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -81,6 +90,40 @@ public class SecondFragment extends Fragment {
         updateUI();
 
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.history_tab_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.menu_item_by_date:
+                /////// testing
+                Toast toast;
+                toast = Toast.makeText(getContext(),"By Date",10);
+                toast.show();
+                /*
+                Сюда вписать сортировку по дате
+                */
+
+                return true;
+
+            case R.id.menu_item_by_status:
+                //////// testing
+                Toast toaster;
+                toaster = Toast.makeText(getContext(),"By Date",10);
+                toaster.show();
+                /*
+                Сюда вписать сортировку по статусу
+                */
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
