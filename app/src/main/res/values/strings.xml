@@ -5,4 +5,6 @@
     <string name="buttonOk">ok</string>
     <string name="editTextFr1">Enter a link to the image</string>
     <string name="Sorting">Sorting by</string>
+    <string name="By_Date">By Date</string>
+    <string name="By_Status">By Status</string>
 </resources>
