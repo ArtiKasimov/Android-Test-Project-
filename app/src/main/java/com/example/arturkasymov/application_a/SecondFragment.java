@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.graphics.Color.GRAY;
+import static android.graphics.Color.GREEN;
+import static android.graphics.Color.RED;
 
 public class SecondFragment extends Fragment {
 
@@ -80,7 +86,6 @@ public class SecondFragment extends Fragment {
 
 
     private void updateUI(){
-        //CrimeLab crimeLab = CrimeLab.get(getActivity());
         DBHandler db = new DBHandler(getContext());
         List<Re_cord> Re_cords = db.getAllRecords();
         mAdapter = new Re_codrAdapter(Re_cords);
@@ -118,13 +123,19 @@ public class SecondFragment extends Fragment {
 }*//////////////
 
     private class Re_cordHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView mTitleTextView;
+
+        private TextView mLinkTextView;
+        private TextView mDateTextView;
+        private RelativeLayout mLayoutItem;
         int id;
+
+        private Re_cord mRe_cord;
 
         public Re_cordHolder(View itemView){
             super(itemView);
-            mTitleTextView = (TextView)itemView;
-            //id = this.getPosition();
+            mLinkTextView = (TextView) itemView.findViewById(R.id.list_item_Re_cord_link_textView);
+            mDateTextView = (TextView) itemView.findViewById(R.id.list_item_re_cord_date_textView);
+            mLayoutItem = (RelativeLayout) itemView.findViewById(R.id.list_item_layout);
             itemView.setOnClickListener(this);
         }
         @Override
@@ -135,15 +146,35 @@ public class SecondFragment extends Fragment {
                     "com.example.arturkasymov.application_b.MainActivity"));
             i.putExtra(EXTRA_FRAGMENT_ID,FRAGMENT_ID);
             i.putExtra(ROW_ID,""+id);
-            //Toast toast;
-            //toast = Toast.makeText(getContext(),""+id,5);
-            //toast.show();
             ///////////
             /// здесь место для передачи чего-то там
             /////////////
             startActivity(i);
 
         }
+
+        public void bindRe_cord(Re_cord re_cord){
+            mRe_cord =re_cord;
+            mLinkTextView.setText(mRe_cord.getReference());
+            mDateTextView.setText(mRe_cord.getTime().toString());
+            switch (re_cord.getStatus()){
+                case 1:{
+                    mLayoutItem.setBackgroundColor(GREEN);
+                    break;
+                }
+                case 2:{
+                    mLayoutItem.setBackgroundColor(RED);
+                    break;
+                }
+                case 3:{
+                    mLayoutItem.setBackgroundColor(GRAY);
+                    break;
+                }
+            }
+
+        }
+
+
     }
 
 
@@ -158,7 +189,7 @@ public class SecondFragment extends Fragment {
         @Override
         public Re_cordHolder onCreateViewHolder(ViewGroup parent, int viewType){
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            View v = layoutInflater.inflate(android.R.layout.simple_list_item_1,parent,false);
+            View v = layoutInflater.inflate(R.layout.list_item_re_cord,parent,false);
             return new Re_cordHolder(v);
         }
 
@@ -166,7 +197,11 @@ public class SecondFragment extends Fragment {
         @Override
         public void onBindViewHolder(Re_cordHolder holder, int position){
             Re_cord re_cord = mRe_cords.get(position);
-            holder.mTitleTextView.setText(re_cord.getReference());
+
+            holder.bindRe_cord(re_cord);
+
+
+            /*часть которая красит, переделать
             switch (re_cord.getStatus()){
                 case 1:{
                     holder.mTitleTextView.setBackgroundColor(R.color.colorGreen);
@@ -180,7 +215,7 @@ public class SecondFragment extends Fragment {
                     holder.mTitleTextView.setBackgroundColor(R.color.colorGray);
                     break;
                 }
-            }
+            }*/
 
         }
 

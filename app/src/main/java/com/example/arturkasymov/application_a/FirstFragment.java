@@ -55,12 +55,11 @@ public class FirstFragment extends Fragment {
             }
         });
 
-
-
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                ////// нужен ли этот кусок ?
                 DBHandler dbHandler = new DBHandler(getContext());
-
+                /////////////
                 Intent i = new Intent();
                 i.setComponent(new ComponentName("com.example.arturkasymov.application_b",
                         "com.example.arturkasymov.application_b.MainActivity"));
@@ -71,8 +70,6 @@ public class FirstFragment extends Fragment {
 
             }
         });
-
-        // Inflate the layout for this fragment
         return view;
     }
 
