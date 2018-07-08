@@ -32,7 +32,7 @@ public class DBHandler extends SQLiteOpenHelper {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_REFERENCE + " TEXT,"
                 + KEY_STATUS + " INTEGER, "
-                + KEY_TIME + " INTEGER"
+                + KEY_TIME + " TEXT"
                 + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
@@ -68,7 +68,7 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Re_cord re_cord = new Re_cord(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
-                        Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
+                        Integer.parseInt(cursor.getString(2)), cursor.getString(3));
 
                 recordList.add(re_cord);
             } while (cursor.moveToNext());
@@ -88,7 +88,7 @@ public class DBHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         Re_cord re_cord = new Re_cord(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
-                Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
+                Integer.parseInt(cursor.getString(2)), cursor.getString(3));
 // return shop
         return re_cord;
     }   //??

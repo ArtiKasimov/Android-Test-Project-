@@ -4,15 +4,15 @@ public class Re_cord {
     private int id;
     private String reference;
     private int status;
-    private int time;
-    public Re_cord(String reference, int status, int time){
+    private String time;
+    public Re_cord(String reference, int status, String time){
         //this.id = id;
         this.reference = reference;
         this.status = status;
         this.time = time;
     }
 
-    public Re_cord(int id, String reference, int status, int time){
+    public Re_cord(int id, String reference, int status, String time){
         this.id = id;
         this.reference = reference;
         this.status = status;
@@ -28,7 +28,7 @@ public class Re_cord {
         return status;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
