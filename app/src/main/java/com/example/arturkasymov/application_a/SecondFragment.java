@@ -1,5 +1,6 @@
 package com.example.arturkasymov.application_a;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class SecondFragment extends Fragment {
 
     private final String EXTRA_FRAGMENT_ID = "com.example.arturkasymov.application_a.FRAGMENT_ID";
     private final String FRAGMENT_ID = "2";
+    private final String ROW_ID = "ID";
 
     private RecyclerView mRe_cordRecyclerView;
     private Re_codrAdapter mAdapter;
@@ -41,6 +44,7 @@ public class SecondFragment extends Fragment {
 
         mRe_cordRecyclerView = (RecyclerView) v.findViewById(R.id.Re_cord_Recycler_View);
         mRe_cordRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        // mRe_cordRecyclerView.setOnClickListener();
 
 
         ////// it's Misha's code
@@ -64,27 +68,9 @@ public class SecondFragment extends Fragment {
         for (Re_cord temp: re_cords){
             references.add(temp.getReference());
         }
-        // it's end
+        // it's end*/
 
-        // it's must be improved
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getContext(),
-                android.R.layout.simple_list_item_1,
-                references);
 
-        ListView listView =view.findViewById(R.id.listview);
-        listView.setAdapter(adapter);
-        // it's end
-
-        */
-        /* Потом впихнуть туда, где будет открываться приложение Б с вкладки история
-        Intent i = new Intent();
-        i.setComponent(new ComponentName("com.example.arturkasymov.application_b",
-                "com.example.arturkasymov.application_b.MainActivity"));
-        i.putExtra(EXTRA_FRAGMENT_ID,FRAGMENT_ID);
-        startActivity(i);
-
-        */
 
         updateUI();
 
@@ -133,19 +119,25 @@ public class SecondFragment extends Fragment {
 
     private class Re_cordHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView mTitleTextView;
+        int id;
 
         public Re_cordHolder(View itemView){
             super(itemView);
             mTitleTextView = (TextView)itemView;
+            //id = this.getPosition();
             itemView.setOnClickListener(this);
         }
         @Override
         public void onClick(View v){
-
+            id = getAdapterPosition();
             Intent i = new Intent();
             i.setComponent(new ComponentName("com.example.arturkasymov.application_b",
                     "com.example.arturkasymov.application_b.MainActivity"));
             i.putExtra(EXTRA_FRAGMENT_ID,FRAGMENT_ID);
+            i.putExtra(ROW_ID,""+id);
+            //Toast toast;
+            //toast = Toast.makeText(getContext(),""+id,5);
+            //toast.show();
             ///////////
             /// здесь место для передачи чего-то там
             /////////////
@@ -170,11 +162,26 @@ public class SecondFragment extends Fragment {
             return new Re_cordHolder(v);
         }
 
+        @SuppressLint("ResourceAsColor")
         @Override
         public void onBindViewHolder(Re_cordHolder holder, int position){
             Re_cord re_cord = mRe_cords.get(position);
             holder.mTitleTextView.setText(re_cord.getReference());
-            holder.mTitleTextView.setBackgroundColor(R.color.colorAccent);
+            switch (re_cord.getStatus()){
+                case 1:{
+                    holder.mTitleTextView.setBackgroundColor(R.color.colorGreen);
+                    break;
+                }
+                case 2:{
+                    holder.mTitleTextView.setBackgroundColor(R.color.colorRed);
+                    break;
+                }
+                case 3:{
+                    holder.mTitleTextView.setBackgroundColor(R.color.colorGray);
+                    break;
+                }
+            }
+
         }
 
         public int getItemCount(){
