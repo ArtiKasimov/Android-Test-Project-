@@ -36,6 +36,11 @@ public class MyContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         int uriType = sURIMatcher.match(uri);
         SQLiteDatabase sqlDB = dbHandler.getWritableDatabase();
         int rowsDeleted = 0;
