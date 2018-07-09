@@ -25,7 +25,12 @@ class MyObserver extends ContentObserver {
         }catch (Exception ex){
             //if secondFragmet is already closed
         }
-        MainActivity.massage();
+        try {
+            MainActivity.massage();
+        }catch (Exception ex){
+        //if secondFragmet is already closed
+    }
+
 
     }
 }

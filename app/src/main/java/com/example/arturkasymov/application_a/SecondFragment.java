@@ -40,6 +40,7 @@ public class SecondFragment extends Fragment {
     private RecyclerView mRe_cordRecyclerView;
     private Re_codrAdapter mAdapter;
     List<Re_cord> Re_cords;
+    private boolean sorting = false;
     static SecondFragment secondFragment;
 
     public SecondFragment() {
@@ -89,22 +90,20 @@ public class SecondFragment extends Fragment {
             case R.id.menu_item_by_date:
                 /////// testing
                 Toast toast;
-                toast = Toast.makeText(getContext(),"By Date",10);
+                toast = Toast.makeText(getContext(),"By Date",Toast.LENGTH_SHORT);
                 toast.show();
-                /*
-                Сюда вписать сортировку по дате
-                */
+                sorting = false;
+                updateUI();
 
                 return true;
 
             case R.id.menu_item_by_status:
                 //////// testing
                 Toast toaster;
-                toaster = Toast.makeText(getContext(),"By Date",10);
+                toaster = Toast.makeText(getContext(),"By Date",Toast.LENGTH_SHORT);
                 toaster.show();
-                /*
-                Сюда вписать сортировку по статусу
-                */
+                sorting = true;
+                updateUI();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -113,7 +112,7 @@ public class SecondFragment extends Fragment {
 
     private void updateUI(){
         DBHandler db = new DBHandler(getContext());
-        Re_cords = db.getAllRecords();
+        Re_cords = db.getAllRecords(sorting);
         mAdapter = new Re_codrAdapter(Re_cords);
         mRe_cordRecyclerView.setAdapter(mAdapter);
 }

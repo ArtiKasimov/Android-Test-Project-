@@ -50,12 +50,19 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Re_cord> getAllRecords() {
+    public List<Re_cord> getAllRecords(boolean sorting) {
         List<Re_cord> recordList = new ArrayList<Re_cord>();
         String selectQuery = "SELECT * FROM " + TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor;
+        if(sorting){
+            cursor = db.query(TABLE_NAME,new String[]{KEY_ID,
+                    KEY_REFERENCE, KEY_STATUS, KEY_TIME},null,null,null,null,KEY_STATUS);}
+        else{
+            cursor = db.rawQuery(selectQuery, null);
+        }
+
 
         if (cursor.moveToFirst()) {
             do {
