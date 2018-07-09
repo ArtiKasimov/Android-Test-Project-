@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Додаток А</string>
+    <string name="firstTab">Тест</string>
+    <string name="secondTab">Історія</string>
+    <string name="buttonOk">ОК</string>
+    <string name="editTextFr1">Введіть посилання на зображення</string>
+    <string name="By_Date">Сортувати за датою</string>
+    <string name="By_Status">Сортувати за статусом</string>
+    <string name="massageDel">Видалено</string>
+</resources>

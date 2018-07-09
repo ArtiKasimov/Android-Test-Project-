@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Application_A</string>
+    <string name="app_name">Application A</string>
     <string name="firstTab">Test</string>
     <string name="secondTab">History</string>
     <string name="buttonOk">ok</string>
