@@ -6,4 +6,5 @@
     <string name="editTextFr1">Enter a link to the image</string>
     <string name="By_Date">Sorting by Date</string>
     <string name="By_Status">Sorting by Status</string>
+    <string name="massageDel">deleted</string>
 </resources>

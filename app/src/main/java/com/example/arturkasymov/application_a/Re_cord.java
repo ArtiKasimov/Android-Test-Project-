@@ -6,7 +6,6 @@ public class Re_cord {
     private int status;
     private String time;
     public Re_cord(String reference, int status, String time){
-        //this.id = id;
         this.reference = reference;
         this.status = status;
         this.time = time;

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 public class FirstFragment extends Fragment {
 
@@ -57,17 +56,12 @@ public class FirstFragment extends Fragment {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                ////// нужен ли этот кусок ?
-                DBHandler dbHandler = new DBHandler(getContext());
-                /////////////
                 Intent i = new Intent();
                 i.setComponent(new ComponentName("com.example.arturkasymov.application_b",
                         "com.example.arturkasymov.application_b.MainActivity"));
                 i.putExtra( EXTRA_IMAGE_URL, image_URL);
                 i.putExtra(EXTRA_FRAGMENT_ID,FRAGMENT_ID);
                 startActivity(i);
-
-
             }
         });
         return view;

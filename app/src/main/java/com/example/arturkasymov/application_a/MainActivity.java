@@ -1,7 +1,5 @@
 package com.example.arturkasymov.application_a;
 
-import android.content.ContentValues;
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Handler;
@@ -11,9 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import  android.support.design.widget.TabLayout;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -110,6 +105,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void massage(){
-        Toast.makeText(mainActivity,"deleted",Toast.LENGTH_SHORT).show();
+        Toast.makeText(mainActivity, R.string.massageDel,Toast.LENGTH_SHORT).show();
     }
 }

@@ -74,16 +74,13 @@ public class MyContentProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        // TODO: Implement this to handle requests for the MIME type of the data
-        // at the given URI.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
 
-         int uriType = sURIMatcher.match(uri);
-
+        int uriType = sURIMatcher.match(uri);
         SQLiteDatabase sqlDB = dbHandler.getWritableDatabase();
 
         long id = 0;
@@ -92,9 +89,6 @@ public class MyContentProvider extends ContentProvider {
                 id = sqlDB.insert(dbHandler.TABLE_NAME,
                         null, values);
                 break;
-            default:
-                //throw new IllegalArgumentException("Unknown URI: "
-                //        + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
         return Uri.parse(PRODUCTS_TABLE + "/" + id);
@@ -122,8 +116,6 @@ public class MyContentProvider extends ContentProvider {
                 break;
             case PRODUCTS:
                 break;
-            default:
-                //throw new IllegalArgumentException("Unknown URI");
         }
 
         Cursor cursor = queryBuilder.query(dbHandler.getReadableDatabase(),
@@ -168,9 +160,6 @@ public class MyContentProvider extends ContentProvider {
                                     selectionArgs);
                 }
                 break;
-            default:
-                //throw new IllegalArgumentException("Unknown URI: " +
-                //        uri);
         }
         getContext().getContentResolver().notifyChange(uri,
                 null);

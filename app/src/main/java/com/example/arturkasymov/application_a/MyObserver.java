@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 @SuppressLint("NewApi")
 class MyObserver extends ContentObserver {
+
     public MyObserver(Handler handler) {
         super(handler);
     }
@@ -22,11 +23,9 @@ class MyObserver extends ContentObserver {
         try {
             SecondFragment.reload();
         }catch (Exception ex){
-            //if secondFragmet closed
+            //if secondFragmet is already closed
         }
         MainActivity.massage();
-        // do s.th.
-        // depending on the handler you might be on the UI
-        // thread, so be cautious!
+
     }
 }

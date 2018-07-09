@@ -33,7 +33,6 @@ import static android.graphics.Color.RED;
 
 public class SecondFragment extends Fragment {
 
-    private static final String CONTENT_URI = "content://com.misha.database.provider.MyContentProvider/refs";
     private final String EXTRA_FRAGMENT_ID = "com.example.arturkasymov.application_a.FRAGMENT_ID";
     private final String FRAGMENT_ID = "2";
     private final String ROW_ID = "ID";
@@ -41,7 +40,6 @@ public class SecondFragment extends Fragment {
     private RecyclerView mRe_cordRecyclerView;
     private Re_codrAdapter mAdapter;
     List<Re_cord> Re_cords;
-    MyObserver myObserver = new MyObserver(new Handler());
     static SecondFragment secondFragment;
 
     public SecondFragment() {
@@ -70,14 +68,12 @@ public class SecondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.second_fragment, container, false);
-
         DBHandler db = new DBHandler(getContext());
 
         mRe_cordRecyclerView = (RecyclerView) v.findViewById(R.id.Re_cord_Recycler_View);
         mRe_cordRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
-
         return v;
     }
 
@@ -115,8 +111,6 @@ public class SecondFragment extends Fragment {
         }
     }
 
-
-
     private void updateUI(){
         DBHandler db = new DBHandler(getContext());
         Re_cords = db.getAllRecords();
@@ -130,7 +124,6 @@ public class SecondFragment extends Fragment {
         private TextView mDateTextView;
         private RelativeLayout mLayoutItem;
         int id;
-
         private Re_cord mRe_cord;
 
         public Re_cordHolder(View itemView){
@@ -150,9 +143,6 @@ public class SecondFragment extends Fragment {
             Re_cord re_cord = Re_cords.get(id);
             id = re_cord.getId();
             i.putExtra(ROW_ID,""+id);
-            ///////////
-            /// здесь место для передачи чего-то там
-            /////////////
             startActivity(i);
 
         }
@@ -175,10 +165,7 @@ public class SecondFragment extends Fragment {
                     break;
                 }
             }
-
         }
-
-
     }
 
 
@@ -197,30 +184,10 @@ public class SecondFragment extends Fragment {
             return new Re_cordHolder(v);
         }
 
-        @SuppressLint("ResourceAsColor")
         @Override
         public void onBindViewHolder(Re_cordHolder holder, int position){
             Re_cord re_cord = mRe_cords.get(position);
-
             holder.bindRe_cord(re_cord);
-
-
-            /*часть которая красит, переделать
-            switch (re_cord.getStatus()){
-                case 1:{
-                    holder.mTitleTextView.setBackgroundColor(R.color.colorGreen);
-                    break;
-                }
-                case 2:{
-                    holder.mTitleTextView.setBackgroundColor(R.color.colorRed);
-                    break;
-                }
-                case 3:{
-                    holder.mTitleTextView.setBackgroundColor(R.color.colorGray);
-                    break;
-                }
-            }*/
-
         }
 
         public int getItemCount(){

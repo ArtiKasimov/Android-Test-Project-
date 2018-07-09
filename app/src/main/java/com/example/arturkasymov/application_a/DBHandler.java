@@ -10,14 +10,11 @@ import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper {
 
-    // Database Version
+
     private static final int DATABASE_VERSION = 1;
-    // Database Name
     public static final String DATABASE_NAME = "history.db";
-    // Contacts table name
     public static final String TABLE_NAME = "refs";
 
-    //Table Columns names
     public static final String KEY_ID = "id";
     private static final String KEY_REFERENCE = "reference";
     private static final String KEY_STATUS = "status";
@@ -28,19 +25,16 @@ public class DBHandler extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_NAME + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_REFERENCE + " TEXT,"
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_REFERENCE + " TEXT,"
                 + KEY_STATUS + " INTEGER, "
-                + KEY_TIME + " TEXT"
-                + ")";
+                + KEY_TIME + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-// Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-// Creating tables again
         onCreate(db);
     }
 
@@ -48,7 +42,6 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        //values.put(KEY_ID, re_cord.getId());
         values.put(KEY_REFERENCE, re_cord.getReference());
         values.put(KEY_STATUS, re_cord.getStatus());
         values.put(KEY_TIME,re_cord.getTime());
@@ -59,7 +52,6 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public List<Re_cord> getAllRecords() {
         List<Re_cord> recordList = new ArrayList<Re_cord>();
-// Select All Query
         String selectQuery = "SELECT * FROM " + TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -67,31 +59,30 @@ public class DBHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Re_cord re_cord = new Re_cord(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
-                        Integer.parseInt(cursor.getString(2)), cursor.getString(3));
-
+                Re_cord re_cord = new Re_cord(Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1),
+                        Integer.parseInt(cursor.getString(2)),
+                        cursor.getString(3));
                 recordList.add(re_cord);
             } while (cursor.moveToNext());
         }
-
-
         return recordList;
     }
 
     public Re_cord getRecord(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-
         Cursor cursor = db.query(TABLE_NAME, new String[]{KEY_ID,
                         KEY_REFERENCE, KEY_STATUS, KEY_TIME}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
+        Re_cord re_cord = new Re_cord(Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1),
+                Integer.parseInt(cursor.getString(2)),
+                cursor.getString(3));
 
-        Re_cord re_cord = new Re_cord(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
-                Integer.parseInt(cursor.getString(2)), cursor.getString(3));
-// return shop
         return re_cord;
-    }   //??
+    }
 
     public int getRecordCount() {
         String countQuery = "SELECT * FROM " + TABLE_NAME;
@@ -99,27 +90,24 @@ public class DBHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
 
-// return count
         return cursor.getCount();
-    }   //??
+    }
 
     public int updateRecord(Re_cord re_cord) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(KEY_REFERENCE, re_cord.getReference());
         values.put(KEY_STATUS, re_cord.getStatus());
         values.put(KEY_TIME, re_cord.getTime());
 
-// updating row
         return db.update(TABLE_NAME, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(re_cord.getId())});
-    }   //??
+    }
 
     public void deleteRecord(Re_cord re_cord) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, KEY_ID + " = ?",
                 new String[] { String.valueOf(re_cord.getId()) });
         db.close();
-    }   //??
+    }
 }
