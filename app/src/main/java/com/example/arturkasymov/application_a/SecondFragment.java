@@ -3,7 +3,9 @@ package com.example.arturkasymov.application_a;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +33,7 @@ import static android.graphics.Color.RED;
 
 public class SecondFragment extends Fragment {
 
-
+    private static final String CONTENT_URI = "content://com.misha.database.provider.MyContentProvider/refs";
     private final String EXTRA_FRAGMENT_ID = "com.example.arturkasymov.application_a.FRAGMENT_ID";
     private final String FRAGMENT_ID = "2";
     private final String ROW_ID = "ID";
@@ -39,6 +41,8 @@ public class SecondFragment extends Fragment {
     private RecyclerView mRe_cordRecyclerView;
     private Re_codrAdapter mAdapter;
     List<Re_cord> Re_cords;
+    MyObserver myObserver = new MyObserver(new Handler());
+    static SecondFragment secondFragment;
 
     public SecondFragment() {
         // Required empty public constructor
@@ -48,7 +52,34 @@ public class SecondFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        secondFragment = this;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Toast.makeText(getContext(),"1",Toast.LENGTH_SHORT).show();
+        getActivity().getContentResolver().
+                registerContentObserver(
+                        Uri.parse(CONTENT_URI),
+                        true,
+                        myObserver);
+        secondFragment.updateUI();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //Toast.makeText(getContext(),"2",Toast.LENGTH_SHORT).show();
+        getActivity().getContentResolver().
+                unregisterContentObserver(myObserver);
+    }
+
+    public static void sms(){
+        Toast.makeText(secondFragment.getContext(),"deleted",Toast.LENGTH_SHORT).show();
+        secondFragment.updateUI();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
