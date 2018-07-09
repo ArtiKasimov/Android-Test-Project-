@@ -58,25 +58,10 @@ public class SecondFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //Toast.makeText(getContext(),"1",Toast.LENGTH_SHORT).show();
-        getActivity().getContentResolver().
-                registerContentObserver(
-                        Uri.parse(CONTENT_URI),
-                        true,
-                        myObserver);
         secondFragment.updateUI();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        //Toast.makeText(getContext(),"2",Toast.LENGTH_SHORT).show();
-        getActivity().getContentResolver().
-                unregisterContentObserver(myObserver);
-    }
-
-    public static void sms(){
-        Toast.makeText(secondFragment.getContext(),"deleted",Toast.LENGTH_SHORT).show();
+    public static void reload(){
         secondFragment.updateUI();
     }
 

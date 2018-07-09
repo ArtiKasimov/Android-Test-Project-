@@ -19,13 +19,18 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String CONTENT_URI = "content://com.misha.database.provider.MyContentProvider/refs";
+
     FrameLayout simpleFrameLayout;
     TabLayout tabLayout;
+    static MainActivity mainActivity;
+    MyObserver myObserver = new MyObserver(new Handler());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainActivity = this;
 
         simpleFrameLayout = (FrameLayout) findViewById(R.id.simpleFrameLayout);
         tabLayout = (TabLayout) findViewById(R.id.simpleTabLayout);
@@ -85,5 +90,26 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.simpleFrameLayout, fragment);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.commit();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.getContentResolver().
+                registerContentObserver(
+                        Uri.parse(CONTENT_URI),
+                        true,
+                        myObserver);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.getContentResolver().
+                unregisterContentObserver(myObserver);
+    }
+
+    public static void massage(){
+        Toast.makeText(mainActivity,"deleted",Toast.LENGTH_SHORT).show();
     }
 }
