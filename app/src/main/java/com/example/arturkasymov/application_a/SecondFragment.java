@@ -78,20 +78,12 @@ public class SecondFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.menu_item_by_date:
-                /////// testing
-                Toast toast;
-                toast = Toast.makeText(getContext(),"By Date",Toast.LENGTH_SHORT);
-                toast.show();
                 sorting = false;
                 updateUI();
 
                 return true;
 
             case R.id.menu_item_by_status:
-                //////// testing
-                Toast toaster;
-                toaster = Toast.makeText(getContext(),"By Date",Toast.LENGTH_SHORT);
-                toaster.show();
                 sorting = true;
                 updateUI();
                 return true;
