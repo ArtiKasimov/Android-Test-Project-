@@ -16,10 +16,8 @@ public class MyContentProvider extends ContentProvider {
     private static final String AUTHORITY =
             "com.misha.database.provider.MyContentProvider";
     private static final String PRODUCTS_TABLE = "refs";
-    public static final Uri CONTENT_URI =
-            Uri.parse("content://" + AUTHORITY + "/" + PRODUCTS_TABLE);
-    public static final int PRODUCTS = 1;
-    public static final int PRODUCTS_ID = 2;
+    private static final int PRODUCTS = 1;
+    private static final int PRODUCTS_ID = 2;
     private DBHandler dbHandler;
 
     private static final UriMatcher sURIMatcher =
@@ -35,9 +33,15 @@ public class MyContentProvider extends ContentProvider {
     }
 
     @Override
+    public boolean onCreate() {
+        dbHandler = new DBHandler(getContext());
+        return false;
+    }
+
+    @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(15000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -47,7 +51,7 @@ public class MyContentProvider extends ContentProvider {
 
         switch (uriType) {
             case PRODUCTS:
-                rowsDeleted = sqlDB.delete(DBHandler.TABLE_NAME,
+                rowsDeleted = sqlDB.delete(DBHandler.getTableName(),
                         selection,
                         selectionArgs);
                 break;
@@ -55,18 +59,16 @@ public class MyContentProvider extends ContentProvider {
             case PRODUCTS_ID:
                 String id = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(selection)) {
-                    rowsDeleted = sqlDB.delete(DBHandler.TABLE_NAME,
-                            DBHandler.KEY_ID + "=" + id,
+                    rowsDeleted = sqlDB.delete(DBHandler.getTableName(),
+                            DBHandler.getID() + "=" + id,
                             null);
                 } else {
-                    rowsDeleted = sqlDB.delete(DBHandler.TABLE_NAME,
-                            DBHandler.KEY_ID + "=" + id
+                    rowsDeleted = sqlDB.delete(DBHandler.getTableName(),
+                            DBHandler.getID() + "=" + id
                                     + " and " + selection,
                             selectionArgs);
                 }
                 break;
-            default:
-                //throw new IllegalArgumentException("Unknown URI: " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
         return rowsDeleted;
@@ -74,7 +76,7 @@ public class MyContentProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return new String(); // not needed
     }
 
     @Override
@@ -86,18 +88,12 @@ public class MyContentProvider extends ContentProvider {
         long id = 0;
         switch (uriType) {
             case PRODUCTS:
-                id = sqlDB.insert(dbHandler.TABLE_NAME,
+                id = sqlDB.insert(DBHandler.getTableName(),
                         null, values);
                 break;
         }
-        getContext().getContentResolver().notifyChange(uri, null);
+        //getContext().getContentResolver().notifyChange(uri, null);
         return Uri.parse(PRODUCTS_TABLE + "/" + id);
-    }
-
-    @Override
-    public boolean onCreate() {
-        dbHandler = new DBHandler(getContext());
-        return false;
     }
 
     @Override
@@ -105,13 +101,13 @@ public class MyContentProvider extends ContentProvider {
                         String[] selectionArgs, String sortOrder) {
 
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        queryBuilder.setTables(DBHandler.TABLE_NAME);
+        queryBuilder.setTables(DBHandler.getTableName());
 
         int uriType = sURIMatcher.match(uri);
 
         switch (uriType) {
             case PRODUCTS_ID:
-                queryBuilder.appendWhere(DBHandler.KEY_ID + "="
+                queryBuilder.appendWhere(DBHandler.getID() + "="
                         + uri.getLastPathSegment());
                 break;
             case PRODUCTS:
@@ -137,7 +133,7 @@ public class MyContentProvider extends ContentProvider {
         switch (uriType) {
             case PRODUCTS:
                 rowsUpdated =
-                        sqlDB.update(DBHandler.TABLE_NAME,
+                        sqlDB.update(DBHandler.getTableName(),
                                 values,
                                 selection,
                                 selectionArgs);
@@ -146,23 +142,22 @@ public class MyContentProvider extends ContentProvider {
                 String id = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(selection)) {
                     rowsUpdated =
-                            sqlDB.update(DBHandler.TABLE_NAME,
+                            sqlDB.update(DBHandler.getTableName(),
                                     values,
-                                    DBHandler.KEY_ID + "=" + id,
+                                    DBHandler.getID() + "=" + id,
                                     null);
                 } else {
                     rowsUpdated =
-                            sqlDB.update(DBHandler.TABLE_NAME,
+                            sqlDB.update(DBHandler.getTableName(),
                                     values,
-                                    DBHandler.KEY_ID + "=" + id
+                                    DBHandler.getID() + "=" + id
                                             + " and "
                                             + selection,
                                     selectionArgs);
                 }
                 break;
         }
-        getContext().getContentResolver().notifyChange(uri,
-                null);
+        //getContext().getContentResolver().notifyChange(uri, null);// massage need only after deleting
         return rowsUpdated;
     }
 }

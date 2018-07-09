@@ -12,10 +12,10 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
     private static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "history.db";
-    public static final String TABLE_NAME = "refs";
+    private static final String DATABASE_NAME = "history.db";
+    private static final String TABLE_NAME = "refs";
 
-    public static final String KEY_ID = "id";
+    private static final String KEY_ID = "id";
     private static final String KEY_REFERENCE = "reference";
     private static final String KEY_STATUS = "status";
     private static final String KEY_TIME = "time";
@@ -116,5 +116,13 @@ public class DBHandler extends SQLiteOpenHelper {
         db.delete(TABLE_NAME, KEY_ID + " = ?",
                 new String[] { String.valueOf(re_cord.getId()) });
         db.close();
+    }
+
+
+    public static String getTableName() {
+        return TABLE_NAME;
+    }
+    public static String getID() {
+        return KEY_ID;
     }
 }

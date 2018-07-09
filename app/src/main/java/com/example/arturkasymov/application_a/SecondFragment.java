@@ -29,7 +29,7 @@ public class SecondFragment extends Fragment {
 
     private RecyclerView mRe_cordRecyclerView;
     private Re_codrAdapter mAdapter;
-    List<Re_cord> Re_cords;
+    private List<Re_cord> Re_cords;
     private boolean sorting = false;
     static SecondFragment secondFragment;
 

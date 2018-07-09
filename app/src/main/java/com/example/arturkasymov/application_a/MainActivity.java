@@ -17,10 +17,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String CONTENT_URI = "content://com.misha.database.provider.MyContentProvider/refs";
 
-    FrameLayout simpleFrameLayout;
-    TabLayout tabLayout;
-    static MainActivity mainActivity;
-    MyObserver myObserver = new MyObserver(new Handler());
+    private FrameLayout simpleFrameLayout;
+    private TabLayout tabLayout;
+    private static MainActivity mainActivity;
+    private MyObserver myObserver = new MyObserver(new Handler());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        DBHandler dbHandler = new DBHandler(this);
-        SQLiteDatabase db = MainActivity.this.openOrCreateDatabase(DBHandler.DATABASE_NAME, MODE_PRIVATE, null);
-        //dbHandler.onCreate(db);
-        //dbHandler.createDataBase(MainActivity.this);
-       // SQLiteDatabase db = dbHandler.getWritableDatabase();
-        //db.close();
-        //dbHandler.db = dbt;
-
-
     }
 
     public void changeFragment(Fragment fragment){
