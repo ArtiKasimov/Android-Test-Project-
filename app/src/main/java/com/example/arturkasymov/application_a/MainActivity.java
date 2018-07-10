@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
         this.getContentResolver().
                 unregisterContentObserver(myObserver);
     }
